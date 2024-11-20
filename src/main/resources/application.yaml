@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: uni_cast
+  mvc:
+    converters:
+      preferred-json-mapper: gson
+telegram:
+  bot:
+    token: ${TELEGRAM__BOT__TOKEN}
+    webhook-url: ${TELEGRAM__BOT__WEBHOOK_URL}
+  api:
+    url: https://api.telegram.org

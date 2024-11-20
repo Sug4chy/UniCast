@@ -1,9 +1,9 @@
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.3.5"
-    id("io.spring.dependency-management") version "1.1.6"
-    kotlin("plugin.jpa") version "1.9.25"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.kotlin.plugin.jpa)
 }
 
 group = "ru.sug4chy"
@@ -22,27 +22,22 @@ dependencies {
     // Compile only
 
     // Implementations
-//    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//    implementation("org.springframework.boot:spring-boot-starter-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.telegram:telegrambots-spring-boot-starter:6.9.7.1")
-    implementation("org.danilopianini:khttp:1.6.3")
-    implementation("com.google.code.gson:gson:2.11.0")
+    implementation(libs.spring.boot.starter.validation)
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.spring.boot.starter.telegram.bots)
+    implementation(libs.gson)
 
     // Runtime only
-//    runtimeOnly("org.postgresql:postgresql")
 
     // TEST compile only
 
     // TEST implementations
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.kotlin.junit5)
 
     // TEST runtime only
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 kotlin {

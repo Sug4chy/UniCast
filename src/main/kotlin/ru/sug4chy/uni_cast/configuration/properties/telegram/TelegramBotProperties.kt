@@ -7,4 +7,5 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding
 data class TelegramBotProperties @ConstructorBinding constructor(
     val token: String,
     val webhookUrl: String,
+    val botUsername: String
 )

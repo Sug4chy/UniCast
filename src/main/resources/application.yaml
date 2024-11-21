@@ -8,5 +8,6 @@ telegram:
   bot:
     token: ${TELEGRAM__BOT__TOKEN}
     webhook-url: ${TELEGRAM__BOT__WEBHOOK_URL}
+    bot-username: ${TELEGRAM__BOT__BOT_USERNAME}
   api:
     url: https://api.telegram.org

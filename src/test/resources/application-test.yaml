@@ -1,0 +1,5 @@
+telegram:
+  bot:
+    token: test-token
+    webhook-url: test-webhook-url
+    bot-username: test-bot-username

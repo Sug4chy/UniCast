@@ -4,8 +4,22 @@ spring:
   mvc:
     converters:
       preferred-json-mapper: gson
+  datasource:
+    url: jdbc:postgresql://${DB__HOST}:${DB__PORT}/${DB__DATABASE_NAME}
+    username: ${DB__USERNAME}
+    password: ${DB__PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+
 telegram:
   bot:
     token: ${TELEGRAM__BOT__TOKEN}
     webhook-url: ${TELEGRAM__BOT__WEBHOOK_URL}
-    bot-username: ${TELEGRAM__BOT__BOT_USERNAME}
+    bot-username: "@uni_cast_bot"

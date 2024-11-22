@@ -39,9 +39,11 @@ dependencies {
     // TEST implementations
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.kotlin.junit5)
+    testImplementation(libs.mockk)
 
     // TEST runtime only
     testRuntimeOnly(libs.junit.platform.launcher)
+    testRuntimeOnly(libs.h2)
 }
 
 kotlin {

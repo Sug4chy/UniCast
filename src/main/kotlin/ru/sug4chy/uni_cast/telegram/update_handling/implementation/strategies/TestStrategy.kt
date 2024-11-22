@@ -11,7 +11,7 @@ class TestStrategy(
 ) : UpdateHandlingStrategy {
 
     override fun canHandle(update: Update): Boolean =
-        update.message.text != null &&
+        update.message?.text != null &&
                 update.message.text.isNotEmpty()
 
     override fun handle(update: Update) {

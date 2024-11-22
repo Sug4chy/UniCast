@@ -14,7 +14,6 @@ class UpdatesController(
 ) {
 
     @PostMapping
-    fun handleUpdate(@RequestBody update: Update) {
+    fun handleUpdate(@RequestBody update: Update) =
         updatesHandler.handle(update)
-    }
 }

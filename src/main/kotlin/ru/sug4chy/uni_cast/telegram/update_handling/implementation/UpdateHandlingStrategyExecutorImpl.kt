@@ -6,7 +6,7 @@ import ru.sug4chy.uni_cast.telegram.update_handling.UpdateHandlingStrategy
 import ru.sug4chy.uni_cast.telegram.update_handling.UpdateHandlingStrategyExecutor
 
 @Service
-internal class UpdateHandlingStrategyExecutorImpl(
+class UpdateHandlingStrategyExecutorImpl(
     private val existingStrategies: List<UpdateHandlingStrategy>
 ) : UpdateHandlingStrategyExecutor {
 

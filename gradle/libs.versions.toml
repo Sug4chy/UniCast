@@ -4,6 +4,7 @@ spring-boot = "3.3.5"
 dependency-management = "1.1.6"
 telegram-bots = "6.9.7.1"
 gson = "2.11.0"
+mockk = "1.13.13"
 
 [libraries]
 spring-boot-starter-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
@@ -17,6 +18,8 @@ junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa" }
 postgresql = { group = "org.postgresql", name = "postgresql" }
 liquibase = { group = "org.liquibase", name = "liquibase-core" }
+h2 = { group = "com.h2database", name = "h2" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

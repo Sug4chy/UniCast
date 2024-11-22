@@ -10,7 +10,7 @@ import ru.sug4chy.uni_cast.configuration.properties.telegram.TelegramBotProperti
 import ru.sug4chy.uni_cast.telegram.TelegramApiClient
 
 @Component
-internal class TelegramBotImpl(
+class TelegramBotImpl(
     private val telegramBotProperties: TelegramBotProperties,
 ) : TelegramWebhookBot(telegramBotProperties.token), TelegramApiClient {
 

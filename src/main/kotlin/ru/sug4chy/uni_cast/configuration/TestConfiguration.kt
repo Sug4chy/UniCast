@@ -12,7 +12,7 @@ import ru.sug4chy.uni_cast.telegram.implementation.TelegramBotImpl
 class TestConfiguration {
 
     @Bean
-    fun telegramBotImpl(
+    internal fun telegramBotImpl(
         telegramBotProperties: TelegramBotProperties
     ): TelegramBotImpl =
         object : TelegramBotImpl(telegramBotProperties) {

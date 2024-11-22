@@ -17,9 +17,11 @@ class TelegramBotImpl(
     override fun getBotUsername(): String =
         telegramBotProperties.botUsername
 
-    // TODO: добавить текст в аннотацию @Deprecated
-    @Deprecated("", ReplaceWith("throw UnsupportedOperationException()"))
-    override fun onWebhookUpdateReceived(update: Update?): Nothing =
+    @Deprecated(
+        "Этот метод не используется, остался лишним от библиотекиу",
+        ReplaceWith("UpdateHandlingStrategyExecutor.handle(update)")
+    )
+    override fun onWebhookUpdateReceived(update: Update): Nothing =
         throw UnsupportedOperationException()
 
     override fun getBotPath(): String =

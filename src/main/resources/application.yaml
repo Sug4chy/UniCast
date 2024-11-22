@@ -1,9 +1,6 @@
 spring:
   application:
     name: uni_cast
-  mvc:
-    converters:
-      preferred-json-mapper: gson
   datasource:
     url: jdbc:postgresql://${DB__HOST}:${DB__PORT}/${DB__DATABASE_NAME}
     username: ${DB__USERNAME}

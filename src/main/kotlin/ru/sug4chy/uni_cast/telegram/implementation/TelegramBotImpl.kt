@@ -3,6 +3,7 @@ package ru.sug4chy.uni_cast.telegram.implementation
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.bots.TelegramWebhookBot
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.configuration.properties.telegram.TelegramBotProperties
@@ -16,9 +17,11 @@ class TelegramBotImpl(
     override fun getBotUsername(): String =
         telegramBotProperties.botUsername
 
-    // TODO: добавить текст в аннотацию @Deprecated
-    @Deprecated("", ReplaceWith("throw UnsupportedOperationException()"))
-    override fun onWebhookUpdateReceived(update: Update?): Nothing =
+    @Deprecated(
+        "Этот метод не используется, остался лишним от библиотекиу",
+        ReplaceWith("UpdateHandlingStrategyExecutor.handle(update)")
+    )
+    override fun onWebhookUpdateReceived(update: Update): Nothing =
         throw UnsupportedOperationException()
 
     override fun getBotPath(): String =
@@ -27,6 +30,19 @@ class TelegramBotImpl(
     override fun setWebhook() {
         SetWebhook.builder()
             .url(telegramBotProperties.webhookUrl)
+            .build()
+            .let { this@TelegramBotImpl.execute(it) }
+    }
+
+    override fun sendMessage(
+        chatId: Long,
+        text: String,
+        parseMode: String,
+    ) {
+        SendMessage.builder()
+            .chatId(chatId)
+            .text(text)
+            .parseMode(parseMode)
             .build()
             .let { this@TelegramBotImpl.execute(it) }
     }

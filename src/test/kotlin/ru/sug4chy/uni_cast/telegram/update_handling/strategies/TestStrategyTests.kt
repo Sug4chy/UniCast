@@ -29,8 +29,6 @@ class TestStrategyTests {
         assertFalse(result)
     }
 
-    // линейную регрессию через lm
-    // и хитмап
     @Test
     fun `cannot handle when text is null`() {
         // arrange
@@ -80,7 +78,7 @@ class TestStrategyTests {
     }
 
     @Test
-    fun handle() {
+    fun `handle works correct with given parameters`() {
         // arrange
         every { apiClientMock.sendMessage(any(), any()) } just runs
         val update = Update().apply {
@@ -96,6 +94,6 @@ class TestStrategyTests {
         testStrategy.handle(update)
 
         // assert
-        verify { apiClientMock.sendMessage(any(), any()) }
+        verify { apiClientMock.sendMessage(1, "Вы написал: *Some valid text*") }
     }
 }

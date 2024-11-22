@@ -26,6 +26,6 @@ class TestConfiguration {
         }
 
     @Bean
-    internal fun testStrategy(telegramBotProperties: TelegramBotProperties): UpdateHandlingStrategy =
+    fun testStrategy(telegramBotProperties: TelegramBotProperties): UpdateHandlingStrategy =
         TestStrategy(telegramBotImpl(telegramBotProperties))
 }

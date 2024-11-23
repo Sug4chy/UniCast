@@ -3,7 +3,6 @@ kotlin = "1.9.25"
 spring-boot = "3.3.5"
 dependency-management = "1.1.6"
 telegram-bots = "6.9.7.1"
-gson = "2.11.0"
 mockk = "1.13.13"
 
 [libraries]
@@ -11,7 +10,6 @@ spring-boot-starter-validation = { group = "org.springframework.boot", name = "s
 spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" }
 spring-boot-starter-telegram-bots = { group = "org.telegram", name = "telegrambots-spring-boot-starter", version.ref = "telegram-bots" }
-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
 kotlin-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }

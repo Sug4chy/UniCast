@@ -27,9 +27,9 @@ dependencies {
     implementation(libs.spring.boot.starter.telegram.bots)
     implementation(libs.spring.boot.starter.data.jpa)
 
-    implementation(libs.gson)
     implementation(libs.kotlin.reflect)
     implementation(libs.liquibase)
+    implementation(libs.kotlin.logging)
 
     // Runtime only
     runtimeOnly(libs.postgresql)

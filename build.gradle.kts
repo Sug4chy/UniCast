@@ -29,6 +29,7 @@ dependencies {
 
     implementation(libs.kotlin.reflect)
     implementation(libs.liquibase)
+    implementation(libs.kotlin.logging)
 
     // Runtime only
     runtimeOnly(libs.postgresql)

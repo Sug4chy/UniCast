@@ -1,11 +1,13 @@
 package ru.sug4chy.uni_cast.telegram.update_handling.implementation.strategies
 
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.telegram.TelegramApiClient
 import ru.sug4chy.uni_cast.telegram.update_handling.UpdateHandlingStrategy
 
 @Component
+@Profile("test")
 class TestStrategy(
     private val telegramApiClient: TelegramApiClient
 ) : UpdateHandlingStrategy {

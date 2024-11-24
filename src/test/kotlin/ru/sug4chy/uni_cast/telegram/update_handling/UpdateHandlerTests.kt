@@ -4,12 +4,12 @@ import io.mockk.*
 import org.junit.jupiter.api.Test
 import org.springframework.test.context.ActiveProfiles
 import org.telegram.telegrambots.meta.api.objects.Update
-import ru.sug4chy.uni_cast.telegram.update_handling.implementation.UpdateHandlingStrategyExecutorImpl
+import ru.sug4chy.uni_cast.telegram.update_handling.implementation.UpdateHandlerImpl
 
 @ActiveProfiles("test")
-class UpdateHandlingStrategyExecutorTests {
+class UpdateHandlerTests {
 
-    private lateinit var executor: UpdateHandlingStrategyExecutor
+    private lateinit var handler: UpdateHandler
 
     @Test
     fun `strategy executes when update is valid`() {
@@ -17,7 +17,7 @@ class UpdateHandlingStrategyExecutorTests {
         val testStrategy = arrangeExecutorAndStrategy(isUpdateValid = true)
 
         // act
-        executor.handle(Update())
+        handler.handle(Update())
 
         // assert
         verify { testStrategy.canHandle(any()) }
@@ -30,7 +30,7 @@ class UpdateHandlingStrategyExecutorTests {
         val testStrategy = arrangeExecutorAndStrategy(isUpdateValid = false)
 
         // act
-        executor.handle(Update())
+        handler.handle(Update())
 
         // assert
         verify { testStrategy.canHandle(any()) }
@@ -43,7 +43,7 @@ class UpdateHandlingStrategyExecutorTests {
         val testStrategy = mockk<UpdateHandlingStrategy>()
         every { testStrategy.canHandle(any()) } returns isUpdateValid
         every { testStrategy.handle(any()) } just runs
-        executor = UpdateHandlingStrategyExecutorImpl(listOf(testStrategy))
+        handler = UpdateHandlerImpl(listOf(testStrategy))
 
         return testStrategy
     }

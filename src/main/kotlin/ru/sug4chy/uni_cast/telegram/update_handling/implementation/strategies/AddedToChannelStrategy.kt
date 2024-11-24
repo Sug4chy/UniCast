@@ -6,12 +6,15 @@ import ru.sug4chy.uni_cast.configuration.properties.telegram.TelegramBotProperti
 import ru.sug4chy.uni_cast.entity.ChannelChat
 import ru.sug4chy.uni_cast.repository.ChannelChatRepository
 import ru.sug4chy.uni_cast.telegram.update_handling.UpdateHandlingStrategy
+import ru.sug4chy.uni_cast.utils.logger
 
 @Component
-class AddedToChannel(
+class AddedToChannelStrategy(
     private val channelChatRepository: ChannelChatRepository,
     private val telegramBotProperties: TelegramBotProperties
 ) : UpdateHandlingStrategy {
+
+    private val logger by logger()
 
     override fun canHandle(update: Update): Boolean =
         update.hasMyChatMember() &&
@@ -22,11 +25,7 @@ class AddedToChannel(
 
     override fun handle(update: Update) {
         val channelChat = ChannelChat.fromUpdate(update)
-        runCatching {
-            channelChatRepository.save(channelChat)
-        }.onFailure {
-            // TODO добавить логирование
-            println(it.message)
-        }
+        runCatching { channelChatRepository.save(channelChat) }
+            .onFailure { exception -> logger.error { exception.message } }
     }
 }

@@ -14,37 +14,37 @@ class UpdateHandlerTests {
     @Test
     fun `strategy executes when update is valid`() {
         // arrange
-        val testStrategy = arrangeExecutorAndStrategy(isUpdateValid = true)
+        val strategy = arrangeExecutorAndStrategy(isUpdateValid = true)
 
         // act
         handler.handle(Update())
 
         // assert
-        verify { testStrategy.canHandle(any()) }
-        verify { testStrategy.handle(any()) }
+        verify { strategy.canHandle(any()) }
+        verify { strategy.handle(any()) }
     }
 
     @Test
     fun `strategy doesn't execute when update isn't valid`() {
         // arrange
-        val testStrategy = arrangeExecutorAndStrategy(isUpdateValid = false)
+        val strategy = arrangeExecutorAndStrategy(isUpdateValid = false)
 
         // act
         handler.handle(Update())
 
         // assert
-        verify { testStrategy.canHandle(any()) }
-        verify(exactly = 0) { testStrategy.handle(any()) }
+        verify { strategy.canHandle(any()) }
+        verify(exactly = 0) { strategy.handle(any()) }
     }
 
     private fun arrangeExecutorAndStrategy(
         isUpdateValid: Boolean
     ): UpdateHandlingStrategy {
-        val testStrategy = mockk<UpdateHandlingStrategy>()
-        every { testStrategy.canHandle(any()) } returns isUpdateValid
-        every { testStrategy.handle(any()) } just runs
-        handler = UpdateHandlerImpl(listOf(testStrategy))
+        val strategy = mockk<UpdateHandlingStrategy>()
+        every { strategy.canHandle(any()) } returns isUpdateValid
+        every { strategy.handle(any()) } just runs
+        handler = UpdateHandlerImpl(listOf(strategy))
 
-        return testStrategy
+        return strategy
     }
 }

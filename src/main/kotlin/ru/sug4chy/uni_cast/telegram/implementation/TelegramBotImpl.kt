@@ -19,7 +19,7 @@ class TelegramBotImpl(
 
     @Deprecated(
         "Этот метод не используется, остался лишним от библиотекиу",
-        ReplaceWith("UpdateHandlingStrategyExecutor.handle(update)")
+        ReplaceWith("UpdateHandler.handle(update)")
     )
     override fun onWebhookUpdateReceived(update: Update): Nothing =
         throw UnsupportedOperationException()

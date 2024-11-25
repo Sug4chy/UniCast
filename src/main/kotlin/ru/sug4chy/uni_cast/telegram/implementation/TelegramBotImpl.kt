@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component
 import org.telegram.telegrambots.bots.TelegramWebhookBot
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook
+import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.configuration.properties.telegram.TelegramBotProperties
 import ru.sug4chy.uni_cast.telegram.TelegramApiClient
@@ -19,7 +20,7 @@ class TelegramBotImpl(
 
     @Deprecated(
         "Этот метод не используется, остался лишним от библиотекиу",
-        ReplaceWith("UpdateHandlingStrategyExecutor.handle(update)")
+        ReplaceWith("UpdateHandler.handle(update)")
     )
     override fun onWebhookUpdateReceived(update: Update): Nothing =
         throw UnsupportedOperationException()
@@ -38,13 +39,15 @@ class TelegramBotImpl(
         chatId: Long,
         text: String,
         parseMode: String,
-    ) {
-        SendMessage.builder()
+    ): Int {
+        val sendMessageApiMethod = SendMessage.builder()
             .chatId(chatId)
             .text(text)
             .parseMode(parseMode)
             .build()
-            .let { this@TelegramBotImpl.execute(it) }
+        val message: Message = this.execute(sendMessageApiMethod)
+
+        return message.messageId
     }
 
     @PostConstruct

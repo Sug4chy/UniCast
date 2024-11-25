@@ -8,5 +8,5 @@ interface TelegramApiClient {
         chatId: Long,
         text: String,
         parseMode: String = ParseMode.MARKDOWN
-    )
+    ): Int
 }

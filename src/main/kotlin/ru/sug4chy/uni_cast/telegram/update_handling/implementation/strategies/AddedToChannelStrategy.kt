@@ -1,5 +1,6 @@
 package ru.sug4chy.uni_cast.telegram.update_handling.implementation.strategies
 
+import mu.KLogger
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.configuration.properties.telegram.TelegramBotProperties
@@ -14,8 +15,6 @@ class AddedToChannelStrategy(
     private val telegramBotProperties: TelegramBotProperties
 ) : UpdateHandlingStrategy {
 
-    private val logger by logger()
-
     override fun canHandle(update: Update): Boolean =
         update.hasMyChatMember() &&
                 update.myChatMember.chat.isChannelChat &&
@@ -27,5 +26,9 @@ class AddedToChannelStrategy(
         val channelChat = ChannelChat.fromUpdate(update)
         runCatching { channelChatRepository.save(channelChat) }
             .onFailure { exception -> logger.error { exception.message } }
+    }
+
+    companion object {
+        private val logger: KLogger by logger()
     }
 }

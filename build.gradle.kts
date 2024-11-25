@@ -24,20 +24,26 @@ dependencies {
     // Implementations
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.web)
-    implementation(libs.kotlin.reflect)
     implementation(libs.spring.boot.starter.telegram.bots)
-    implementation(libs.gson)
+    implementation(libs.spring.boot.starter.data.jpa)
+
+    implementation(libs.kotlin.reflect)
+    implementation(libs.liquibase)
+    implementation(libs.kotlin.logging)
 
     // Runtime only
+    runtimeOnly(libs.postgresql)
 
     // TEST compile only
 
     // TEST implementations
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.kotlin.junit5)
+    testImplementation(libs.mockk)
 
     // TEST runtime only
     testRuntimeOnly(libs.junit.platform.launcher)
+    testRuntimeOnly(libs.h2)
 }
 
 kotlin {

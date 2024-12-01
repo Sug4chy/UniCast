@@ -9,8 +9,8 @@ import ru.sug4chy.uni_cast.repository.ChannelChatRepository
 import ru.sug4chy.uni_cast.repository.MessageReactionRepository
 import ru.sug4chy.uni_cast.repository.SentMessageRepository
 import ru.sug4chy.uni_cast.telegram.update_handling.UpdateHandlingStrategy
-import ru.sug4chy.uni_cast.utils.NEGATIVE_CALLBACK_REACTION
-import ru.sug4chy.uni_cast.utils.POSITIVE_CALLBACK_REACTION
+import ru.sug4chy.uni_cast.telegram.NEGATIVE_CALLBACK_REACTION
+import ru.sug4chy.uni_cast.telegram.POSITIVE_CALLBACK_REACTION
 import ru.sug4chy.uni_cast.utils.logger
 
 @Component

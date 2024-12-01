@@ -1,8 +1,0 @@
-package ru.sug4chy.uni_cast.utils
-
-// Emojis
-const val THUMB_UP_EMOJI = "\uD83D\uDC4D"
-const val THUMB_DOWN_EMOJI = "\uD83D\uDC4E"
-
-const val POSITIVE_CALLBACK_REACTION = "POSITIVE_MESSAGE_REACTION"
-const val NEGATIVE_CALLBACK_REACTION = "NEGATIVE_MESSAGE_REACTION"

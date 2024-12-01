@@ -7,6 +7,7 @@ interface TelegramApiClient {
     fun sendMessage(
         chatId: Long,
         text: String,
-        parseMode: String = ParseMode.MARKDOWN
+        parseMode: String = ParseMode.MARKDOWN,
+        inlineButtons: List<List<Pair<String, String>>> = emptyList()
     ): Int
 }

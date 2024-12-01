@@ -20,7 +20,10 @@ class SentMessage private constructor(
     val channelChat: ChannelChat,
 
     @Column(nullable = false)
-    val sender: String
+    val sender: String,
+
+    @OneToMany(mappedBy = "message")
+    val reactions: Set<MessageReaction> = emptySet()
 ) : EntityBase(id) {
 
     class MessageBuilder {

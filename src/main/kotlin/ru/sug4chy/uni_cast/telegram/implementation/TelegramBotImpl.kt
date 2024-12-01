@@ -7,6 +7,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook
 import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.Update
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
 import ru.sug4chy.uni_cast.configuration.properties.telegram.TelegramBotProperties
 import ru.sug4chy.uni_cast.telegram.TelegramApiClient
 
@@ -39,11 +41,22 @@ class TelegramBotImpl(
         chatId: Long,
         text: String,
         parseMode: String,
+        inlineButtons: List<List<Pair<String, String>>>
     ): Int {
         val sendMessageApiMethod = SendMessage.builder()
             .chatId(chatId)
             .text(text)
             .parseMode(parseMode)
+            .replyMarkup(
+                InlineKeyboardMarkup(inlineButtons.map { row ->
+                    row.map { rowItem ->
+                        InlineKeyboardButton().apply {
+                            this.text = rowItem.first
+                            this.callbackData = rowItem.second
+                        }
+                    }
+                })
+            )
             .build()
         val message: Message = this.execute(sendMessageApiMethod)
 

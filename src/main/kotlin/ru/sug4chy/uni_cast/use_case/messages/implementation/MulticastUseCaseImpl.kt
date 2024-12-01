@@ -8,7 +8,7 @@ import ru.sug4chy.uni_cast.repository.ChannelChatRepository
 import ru.sug4chy.uni_cast.repository.SentMessageRepository
 import ru.sug4chy.uni_cast.telegram.TelegramApiClient
 import ru.sug4chy.uni_cast.use_case.messages.MulticastUseCase
-import ru.sug4chy.uni_cast.utils.logger
+import ru.sug4chy.uni_cast.utils.*
 
 @UseCase
 class MulticastUseCaseImpl(
@@ -24,6 +24,12 @@ class MulticastUseCaseImpl(
                 val messageExtId = telegramApiClient.sendMessage(
                     chatId = channel.extId,
                     text = "Новое сообщение:\n${request.text}\n\nОтправитель: ${request.from}",
+                    inlineButtons = listOf(
+                        listOf(
+                            THUMB_UP_EMOJI to POSITIVE_CALLBACK_REACTION,
+                            THUMB_DOWN_EMOJI to NEGATIVE_CALLBACK_REACTION
+                        )
+                    )
                 )
                 val message = SentMessage.builder()
                     .extId(messageExtId)

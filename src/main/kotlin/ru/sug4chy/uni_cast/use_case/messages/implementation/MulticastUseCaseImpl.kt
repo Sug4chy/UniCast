@@ -6,7 +6,7 @@ import ru.sug4chy.uni_cast.dto.request.messages.MulticastRequest
 import ru.sug4chy.uni_cast.entity.SentMessage
 import ru.sug4chy.uni_cast.repository.ChannelChatRepository
 import ru.sug4chy.uni_cast.repository.SentMessageRepository
-import ru.sug4chy.uni_cast.telegram.TelegramApiClient
+import ru.sug4chy.uni_cast.telegram.*
 import ru.sug4chy.uni_cast.use_case.messages.MulticastUseCase
 import ru.sug4chy.uni_cast.utils.*
 

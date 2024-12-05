@@ -6,4 +6,6 @@ import ru.sug4chy.uni_cast.entity.ChannelChat
 import java.util.*
 
 @Repository
-interface ChannelChatRepository : CrudRepository<ChannelChat, UUID>
+interface ChannelChatRepository : CrudRepository<ChannelChat, UUID> {
+    fun findByExtId(extId: Long): ChannelChat?
+}

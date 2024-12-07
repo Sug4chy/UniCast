@@ -4,7 +4,7 @@ import mu.KLogger
 import ru.sug4chy.uni_cast.annotation.UseCase
 import ru.sug4chy.uni_cast.dto.request.messages.MulticastRequest
 import ru.sug4chy.uni_cast.entity.SentMessage
-import ru.sug4chy.uni_cast.repository.ChannelChatRepository
+import ru.sug4chy.uni_cast.repository.TelegramChatRepository
 import ru.sug4chy.uni_cast.repository.SentMessageRepository
 import ru.sug4chy.uni_cast.telegram.*
 import ru.sug4chy.uni_cast.use_case.messages.MulticastUseCase
@@ -13,12 +13,12 @@ import ru.sug4chy.uni_cast.utils.*
 @UseCase
 class MulticastUseCaseImpl(
     private val telegramApiClient: TelegramApiClient,
-    private val channelChatRepository: ChannelChatRepository,
+    private val telegramChatRepository: TelegramChatRepository,
     private val sentMessageRepository: SentMessageRepository
 ) : MulticastUseCase {
 
     override fun invoke(request: MulticastRequest) =
-        channelChatRepository
+        telegramChatRepository
             .findAll()
             .forEach { channel ->
                 val messageExtId = telegramApiClient.sendMessage(

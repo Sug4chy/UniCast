@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.entity.MessageReaction
 import ru.sug4chy.uni_cast.entity.MessageReactionType
-import ru.sug4chy.uni_cast.repository.ChannelChatRepository
+import ru.sug4chy.uni_cast.repository.TelegramChatRepository
 import ru.sug4chy.uni_cast.repository.MessageReactionRepository
 import ru.sug4chy.uni_cast.repository.SentMessageRepository
 import ru.sug4chy.uni_cast.telegram.update_handling.UpdateHandlingStrategy
@@ -15,7 +15,7 @@ import ru.sug4chy.uni_cast.utils.logger
 
 @Component
 class ReactedToMessageStrategy(
-    private val channelChatRepository: ChannelChatRepository,
+    private val telegramChatRepository: TelegramChatRepository,
     private val messageRepository: SentMessageRepository,
     private val messageReactionRepository: MessageReactionRepository
 ) : UpdateHandlingStrategy {
@@ -26,7 +26,7 @@ class ReactedToMessageStrategy(
                         update.callbackQuery.data == NEGATIVE_CALLBACK_REACTION)
 
     override fun handle(update: Update) {
-        val chat = channelChatRepository.findByExtId(update.callbackQuery.message.chatId)
+        val chat = telegramChatRepository.findByExtId(update.callbackQuery.message.chatId)
             ?: run {
                 logger.error { "Chat with ID ${update.callbackQuery.message.chatId} not found" }
                 return

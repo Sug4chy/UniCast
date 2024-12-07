@@ -4,14 +4,14 @@ import mu.KLogger
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.configuration.properties.telegram.TelegramBotProperties
-import ru.sug4chy.uni_cast.entity.ChannelChat
-import ru.sug4chy.uni_cast.repository.ChannelChatRepository
+import ru.sug4chy.uni_cast.entity.TelegramChat
+import ru.sug4chy.uni_cast.repository.TelegramChatRepository
 import ru.sug4chy.uni_cast.telegram.update_handling.UpdateHandlingStrategy
 import ru.sug4chy.uni_cast.utils.logger
 
 @Component
 class AddedToChannelStrategy(
-    private val channelChatRepository: ChannelChatRepository,
+    private val telegramChatRepository: TelegramChatRepository,
     private val telegramBotProperties: TelegramBotProperties
 ) : UpdateHandlingStrategy {
 
@@ -23,8 +23,8 @@ class AddedToChannelStrategy(
                 telegramBotProperties.botUsername.removePrefix("@")
 
     override fun handle(update: Update) {
-        val channelChat = ChannelChat.fromUpdate(update)
-        runCatching { channelChatRepository.save(channelChat) }
+        val telegramChat = TelegramChat.fromMyChatMemberUpdate(update)
+        runCatching { telegramChatRepository.save(telegramChat) }
             .onFailure { exception -> logger.error { exception.message } }
     }
 

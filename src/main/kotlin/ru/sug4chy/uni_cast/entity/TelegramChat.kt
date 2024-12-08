@@ -53,7 +53,7 @@ class TelegramChat private constructor(
 
             return TelegramChat(
                 extId = update.message.chat.id,
-                name = update.message.chat.title,
+                name = update.message.from.userName,
                 addedAt = LocalDateTime.now(),
                 type = TelegramChatType.PRIVATE_CHAT
             )

@@ -39,7 +39,7 @@ class SentMessage private constructor(
         fun text(text: String): MessageBuilder =
             apply { this.text = text }
 
-        fun channelChat(telegramChat: TelegramChat): MessageBuilder =
+        fun telegramChat(telegramChat: TelegramChat): MessageBuilder =
             apply { this.telegramChat = telegramChat }
 
         fun sender(sender: String): MessageBuilder =

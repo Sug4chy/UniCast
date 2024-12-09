@@ -22,7 +22,7 @@ class TelegramServiceImpl(
         val messageExtId = if (withReactions) {
             telegramApiClient.sendMessage(
                 chatId = chat.extId,
-                text = "Новое сообщение:\n${messageText}\n\nОтправитель: $from",
+                text = messageText,
                 inlineButtons = listOf(
                     listOf(
                         THUMB_UP_EMOJI to POSITIVE_CALLBACK_REACTION,
@@ -33,7 +33,7 @@ class TelegramServiceImpl(
         } else {
             telegramApiClient.sendMessage(
                 chatId = chat.extId,
-                text = "Новое сообщение:\n${messageText}\n\nОтправитель: $from",
+                text = messageText,
             )
         }
 

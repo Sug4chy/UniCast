@@ -1,8 +1,12 @@
 package ru.sug4chy.uni_cast.entity
 
 import jakarta.persistence.*
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.entity.base.EntityBase
+import ru.sug4chy.uni_cast.hibernate.MapJsonbAttributeConverter
+import ru.sug4chy.uni_cast.telegram.scenario.Scenario
 import java.time.LocalDateTime
 import java.util.*
 
@@ -29,6 +33,17 @@ class TelegramChat private constructor(
 
     @OneToOne(mappedBy = "telegramChat")
     val student: Student? = null,
+
+    @Column(name = "current_scenario", nullable = true, unique = false)
+    @Enumerated(EnumType.ORDINAL)
+    val currentScenario: Scenario? = null,
+
+    @Column(name = "current_state", nullable = true, unique = false)
+    val currentState: Int? = null,
+
+    @Convert(converter = MapJsonbAttributeConverter::class)
+    @Column(name = "current_scenario_args", nullable = true, unique = false, columnDefinition = "jsonb")
+    val currentScenarioArgs: Map<String, Any> = emptyMap(),
 ) : EntityBase(id) {
 
     companion object {

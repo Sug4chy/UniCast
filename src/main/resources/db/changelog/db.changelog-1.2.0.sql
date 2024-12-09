@@ -29,3 +29,17 @@ CREATE TABLE IF NOT EXISTS student
 );
 
 COMMIT;
+
+-- changeset sug4chy:3
+BEGIN;
+
+ALTER TABLE telegram_chat
+    ADD COLUMN current_scenario SMALLINT NULL;
+
+ALTER TABLE telegram_chat
+    ADD COLUMN current_state INT NULL;
+
+ALTER TABLE telegram_chat
+    ADD COLUMN current_scenario_args jsonb NULL;
+
+COMMIT;

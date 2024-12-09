@@ -8,4 +8,5 @@ import java.util.*
 @Repository
 interface TelegramChatRepository : CrudRepository<TelegramChat, UUID> {
     fun findByExtId(extId: Long): TelegramChat?
+    fun existsByExtId(extId: Long): Boolean
 }

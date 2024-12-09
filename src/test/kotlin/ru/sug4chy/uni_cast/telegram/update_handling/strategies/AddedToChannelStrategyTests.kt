@@ -17,8 +17,8 @@ import org.telegram.telegrambots.meta.api.objects.User
 import org.telegram.telegrambots.meta.api.objects.chatmember.ChatMemberAdministrator
 import org.telegram.telegrambots.meta.api.objects.chatmember.ChatMemberBanned
 import ru.sug4chy.uni_cast.configuration.properties.telegram.TelegramBotProperties
-import ru.sug4chy.uni_cast.entity.ChannelChat
-import ru.sug4chy.uni_cast.repository.ChannelChatRepository
+import ru.sug4chy.uni_cast.entity.TelegramChat
+import ru.sug4chy.uni_cast.repository.TelegramChatRepository
 import ru.sug4chy.uni_cast.telegram.update_handling.implementation.strategies.AddedToChannelStrategy
 import java.util.stream.Stream
 
@@ -29,11 +29,11 @@ class AddedToChannelStrategyTests {
     @Autowired
     private lateinit var telegramBotProperties: TelegramBotProperties
     private lateinit var addedToChannelStrategy: AddedToChannelStrategy
-    private lateinit var repoMock: ChannelChatRepository
+    private lateinit var repoMock: TelegramChatRepository
 
     @BeforeEach
     fun setUp() {
-        repoMock = mockk<ChannelChatRepository>()
+        repoMock = mockk<TelegramChatRepository>()
         addedToChannelStrategy = AddedToChannelStrategy(repoMock, telegramBotProperties)
     }
 
@@ -63,7 +63,7 @@ class AddedToChannelStrategyTests {
                 }
             }
         }
-        every { repoMock.save(any()) } returns ChannelChat.fromUpdate(update)
+        every { repoMock.save(any()) } returns TelegramChat.fromMyChatMemberUpdate(update)
 
         // act
         addedToChannelStrategy.handle(update)

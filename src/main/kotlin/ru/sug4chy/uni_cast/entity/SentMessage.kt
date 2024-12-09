@@ -17,7 +17,7 @@ class SentMessage private constructor(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_id", nullable = false)
-    val channelChat: ChannelChat,
+    val telegramChat: TelegramChat,
 
     @Column(nullable = false)
     val sender: String,
@@ -30,7 +30,7 @@ class SentMessage private constructor(
 
         private var extId: Int = -1
         private var text: String = ""
-        private var channelChat: ChannelChat? = null
+        private var telegramChat: TelegramChat? = null
         private var sender: String = ""
 
         fun extId(extId: Int): MessageBuilder =
@@ -39,8 +39,8 @@ class SentMessage private constructor(
         fun text(text: String): MessageBuilder =
             apply { this.text = text }
 
-        fun channelChat(channelChat: ChannelChat): MessageBuilder =
-            apply { this.channelChat = channelChat }
+        fun telegramChat(telegramChat: TelegramChat): MessageBuilder =
+            apply { this.telegramChat = telegramChat }
 
         fun sender(sender: String): MessageBuilder =
             apply { this.sender = sender }
@@ -48,13 +48,13 @@ class SentMessage private constructor(
         fun build(): SentMessage {
             check(this.extId != -1) { "extId must be initialized" }
             check(this.text != "") { "text must be initialized" }
-            check(this.channelChat != null) { "channelChat must be initialized" }
+            check(this.telegramChat != null) { "channelChat must be initialized" }
             check(this.sender != "") { "sender must be initialized" }
 
             return SentMessage(
                 extId = this.extId,
                 text = this.text,
-                channelChat = this.channelChat ?: throw IllegalStateException("channelChat must be initialized"),
+                telegramChat = this.telegramChat ?: throw IllegalStateException("channelChat must be initialized"),
                 sender = this.sender
             )
         }

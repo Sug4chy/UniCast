@@ -10,7 +10,7 @@ import java.util.*
 @Repository
 interface SentMessageRepository : CrudRepository<SentMessage, UUID> {
 
-    @Query("SELECT m FROM SentMessage m WHERE m.extId = :extId AND m.channelChat.id = :channelId")
+    @Query("SELECT m FROM SentMessage m WHERE m.extId = :extId AND m.telegramChat.id = :channelId")
     fun findByExtIdAndChatId(
         @Param("extId") extId: Int,
         @Param("channelId") channelId: UUID

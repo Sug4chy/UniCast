@@ -5,7 +5,6 @@ import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.entity.base.EntityBase
-import ru.sug4chy.uni_cast.hibernate.MapJsonbAttributeConverter
 import ru.sug4chy.uni_cast.telegram.scenario.Scenario
 import java.time.LocalDateTime
 import java.util.*
@@ -36,14 +35,15 @@ class TelegramChat private constructor(
 
     @Column(name = "current_scenario", nullable = true, unique = false)
     @Enumerated(EnumType.ORDINAL)
-    val currentScenario: Scenario? = null,
+    var currentScenario: Scenario? = null,
 
     @Column(name = "current_state", nullable = true, unique = false)
-    val currentState: Int? = null,
+    var currentState: Int? = null,
 
-    @Convert(converter = MapJsonbAttributeConverter::class)
+//    @Convert(converter = MapJsonbAttributeConverter::class)
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "current_scenario_args", nullable = true, unique = false, columnDefinition = "jsonb")
-    val currentScenarioArgs: Map<String, Any> = emptyMap(),
+    val currentScenarioArgs: MutableMap<String, Any> = mutableMapOf(),
 ) : EntityBase(id) {
 
     companion object {

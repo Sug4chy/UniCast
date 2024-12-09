@@ -1,36 +1,20 @@
 package ru.sug4chy.uni_cast.telegram.scenario.registration.states
 
-import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.objects.Update
 import ru.sug4chy.uni_cast.entity.TelegramChat
-import ru.sug4chy.uni_cast.repository.TelegramChatRepository
 import ru.sug4chy.uni_cast.service.TelegramService
 import ru.sug4chy.uni_cast.telegram.SELF_SENDER
+import ru.sug4chy.uni_cast.telegram.scenario.registration.RegistrationScenarioState
 import ru.sug4chy.uni_cast.telegram.scenario.registration.RegistrationStateMachine
 
-@Component
 class RegistrationStartedState(
     private val telegramService: TelegramService,
-    private val telegramChatRepository: TelegramChatRepository,
-    private val nextState: FullNameEnteredState,
     registrationStateMachine: RegistrationStateMachine
 ) : RegistrationStateBase(registrationStateMachine) {
 
-    override fun onStateChanged(update: Update) {
-        with(telegramChatRepository.findByExtId(update.message.chatId)) {
-            if (this != null && this.student != null) {
-                telegramService.sendAndSaveMessage(
-                    chat = telegramChatRepository.findByExtId(update.message.chatId)!!,
-                    messageText = "Кажется, вы уже зарегистрированы в боте. Да, ${this.student?.fullName}?",
-                    from = SELF_SENDER,
-                    withReactions = false
-                )
-                return
-            }
-        }
+    private val nextState = RegistrationScenarioState.FULL_NAME_ENTERED
 
-        val chat = TelegramChat.fromMessageUpdate(update)
-            .also { telegramChatRepository.save(it) }
+    override fun onStateChanged(chat: TelegramChat, update: Update) {
         telegramService.sendAndSaveMessage(
             chat = chat,
             messageText = "Здравствуйте! Я - бот, цель жизни которого, это передавать студентам информацию. Давайте начнём знакомиться!\n\nВведите своё имя:",
@@ -39,9 +23,10 @@ class RegistrationStartedState(
         )
         registrationStateMachine.changeStateTo(
             chat = chat,
-            newState = nextState
+            newState = registrationStateMachine.getState(nextState),
+            update = update
         )
     }
 
-    override fun handleUserInput(update: Update) = Unit
+    override fun handleUserInput(chat: TelegramChat, update: Update) = Unit
 }

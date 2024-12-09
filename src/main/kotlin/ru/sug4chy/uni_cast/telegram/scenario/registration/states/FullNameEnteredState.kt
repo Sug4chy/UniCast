@@ -1,29 +1,27 @@
 package ru.sug4chy.uni_cast.telegram.scenario.registration.states
 
-import org.springframework.stereotype.Component
 import org.telegram.telegrambots.meta.api.objects.Update
-import ru.sug4chy.uni_cast.repository.TelegramChatRepository
+import ru.sug4chy.uni_cast.entity.TelegramChat
 import ru.sug4chy.uni_cast.service.TelegramService
 import ru.sug4chy.uni_cast.telegram.SELF_SENDER
+import ru.sug4chy.uni_cast.telegram.scenario.registration.RegistrationScenarioState
 import ru.sug4chy.uni_cast.telegram.scenario.registration.RegistrationStateMachine
 
-@Component
 class FullNameEnteredState(
-    registrationStateMachine: RegistrationStateMachine,
-    private val nextSTate: GroupNameEnteredState,
     private val telegramService: TelegramService,
-    private val telegramChatRepository: TelegramChatRepository
+    registrationStateMachine: RegistrationStateMachine,
 ) : RegistrationStateBase(registrationStateMachine) {
 
-    override fun onStateChanged(update: Update) = Unit
+    private val nextState = RegistrationScenarioState.GROUP_NAME_ENTERED
 
-    override fun handleUserInput(update: Update) {
+    override fun onStateChanged(chat: TelegramChat, update: Update) = Unit
+
+    override fun handleUserInput(chat: TelegramChat, update: Update) {
         require(update.hasMessage() && update.message.hasText())
 
         val fullName = update.message.text
-        val chat = telegramChatRepository.findByExtId(update.message.chatId)
-            ?: return
-        // TODO: сохраняем в аргументы текущего сценария
+        chat.currentScenarioArgs["fullName"] = fullName
+
         telegramService.sendAndSaveMessage(
             chat = chat,
             messageText = "Принято! Теперь напиши, в какой группе ты состоишь:",
@@ -32,7 +30,8 @@ class FullNameEnteredState(
         )
         registrationStateMachine.changeStateTo(
             chat = chat,
-            newState = nextSTate
+            newState = registrationStateMachine.getState(nextState),
+            update = update
         )
     }
 }

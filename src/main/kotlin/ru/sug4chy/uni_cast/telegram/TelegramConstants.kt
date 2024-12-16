@@ -21,3 +21,5 @@ val FAQ_MESSAGE = """
 """.trimIndent()
 
 const val SELF_SENDER = "self"
+
+const val GROUP_CHOSEN_CALLBACK_START = "GROUP_CHOSEN:"

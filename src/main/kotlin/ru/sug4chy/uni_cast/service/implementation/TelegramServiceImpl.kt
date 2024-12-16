@@ -17,18 +17,13 @@ class TelegramServiceImpl(
         chat: TelegramChat,
         messageText: String,
         from: String,
-        withReactions: Boolean
+        inlineMarkup: List<List<Pair<String, String>>>
     ) {
-        val messageExtId = if (withReactions) {
+        val messageExtId = if (inlineMarkup.isNotEmpty()) {
             telegramApiClient.sendMessage(
                 chatId = chat.extId,
                 text = messageText,
-                inlineButtons = listOf(
-                    listOf(
-                        THUMB_UP_EMOJI to POSITIVE_CALLBACK_REACTION,
-                        THUMB_DOWN_EMOJI to NEGATIVE_CALLBACK_REACTION
-                    )
-                )
+                inlineButtons = inlineMarkup
             )
         } else {
             telegramApiClient.sendMessage(
@@ -46,4 +41,17 @@ class TelegramServiceImpl(
 
         sentMessageRepository.save(message)
     }
+
+    override fun sendAndSaveMessageWithReactions(chat: TelegramChat, messageText: String, from: String) =
+        sendAndSaveMessage(
+            chat = chat,
+            messageText = messageText,
+            from = from,
+            inlineMarkup = listOf(
+                listOf(
+                    THUMB_UP_EMOJI to POSITIVE_CALLBACK_REACTION,
+                    THUMB_DOWN_EMOJI to NEGATIVE_CALLBACK_REACTION
+                )
+            )
+        )
 }

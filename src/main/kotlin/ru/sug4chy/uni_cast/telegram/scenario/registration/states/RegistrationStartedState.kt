@@ -17,9 +17,9 @@ class RegistrationStartedState(
     override fun onStateChanged(chat: TelegramChat, update: Update) {
         telegramService.sendAndSaveMessage(
             chat = chat,
-            messageText = "Здравствуйте! Я - бот, цель жизни которого, это передавать студентам информацию. Давайте начнём знакомиться!\n\nВведите своё имя:",
-            from = SELF_SENDER,
-            withReactions = false
+            messageText = "Здравствуйте! Я - бот, цель жизни которого, это передавать студентам информацию. " +
+                    "Давайте начнём знакомиться!",
+            from = SELF_SENDER
         )
         registrationStateMachine.changeStateTo(
             chat = chat,

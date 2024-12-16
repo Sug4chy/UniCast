@@ -29,8 +29,7 @@ class RegistrationCompletedState(
         telegramService.sendAndSaveMessage(
             chat = chat,
             messageText = "Поздравляю вас с успешным завершением регистрации!",
-            from = SELF_SENDER,
-            withReactions = false
+            from = SELF_SENDER
         )
 
         registrationStateMachine.clearScenario(chat)

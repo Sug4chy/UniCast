@@ -14,7 +14,13 @@ class FullNameEnteredState(
 
     private val nextState = RegistrationScenarioState.GROUP_NAME_ENTERED
 
-    override fun onStateChanged(chat: TelegramChat, update: Update) = Unit
+    override fun onStateChanged(chat: TelegramChat, update: Update) {
+        telegramService.sendAndSaveMessage(
+            chat = chat,
+            messageText = "Пожалуйста, введите свои имя и фамилию (именно в этом порядке):",
+            from = SELF_SENDER,
+        )
+    }
 
     override fun handleUserInput(chat: TelegramChat, update: Update) {
         require(update.hasMessage() && update.message.hasText())
@@ -22,12 +28,6 @@ class FullNameEnteredState(
         val fullName = update.message.text
         chat.currentScenarioArgs["fullName"] = fullName
 
-        telegramService.sendAndSaveMessage(
-            chat = chat,
-            messageText = "Принято! Теперь напиши, в какой группе ты состоишь:",
-            from = SELF_SENDER,
-            withReactions = false
-        )
         registrationStateMachine.changeStateTo(
             chat = chat,
             newState = registrationStateMachine.getState(nextState),

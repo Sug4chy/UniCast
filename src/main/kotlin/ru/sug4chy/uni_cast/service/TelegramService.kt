@@ -7,6 +7,12 @@ interface TelegramService {
         chat: TelegramChat,
         messageText: String,
         from: String,
-        withReactions: Boolean = false
+        inlineMarkup: List<List<Pair<String, String>>> = emptyList()
+    )
+
+    fun sendAndSaveMessageWithReactions(
+        chat: TelegramChat,
+        messageText: String,
+        from: String
     )
 }

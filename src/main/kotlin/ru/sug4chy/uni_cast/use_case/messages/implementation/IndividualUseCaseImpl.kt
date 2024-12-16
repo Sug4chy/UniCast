@@ -17,11 +17,10 @@ class IndividualUseCaseImpl(
             val student = studentRepository.findByFullNameIfTelegramChatExists(studentDto.fullName)
                 ?: continue
 
-            telegramService.sendAndSaveMessage(
+            telegramService.sendAndSaveMessageWithReactions(
                 chat = student.telegramChat ?: continue,
                 messageText = request.message,
-                from = request.from,
-                withReactions = false
+                from = request.from
             )
         }
     }

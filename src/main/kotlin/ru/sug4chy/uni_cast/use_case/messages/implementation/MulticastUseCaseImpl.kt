@@ -16,11 +16,10 @@ class MulticastUseCaseImpl(
         telegramChatRepository
             .findAll()
             .forEach { chat ->
-                telegramService.sendAndSaveMessage(
+                telegramService.sendAndSaveMessageWithReactions(
                     chat = chat,
                     messageText = request.text,
-                    from = request.from,
-                    withReactions = true
+                    from = request.from
                 )
             }
 }
